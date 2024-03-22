@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- snackbar -->
+
+<body>
+    <div class="containerLoginPlus">
+        <div class="leftLoginPlus">
+            <br />
+        </div>
+
+        <div class="rightLoginPlus">
+            <h1>BIENVENIDO</h1>
+            <div><img src="/assets/imgs/Volaris.png" class="image" /></div>
+            <h2>Analítica</h2>
+
+            <div class="log">
+                <mat-form-field>
+                    <mat-label>Ingresa tu usuario</mat-label>
+                    <input type="password" required id="txtUsr" matInput (keypress)="fnKeyPress('TEXTO', $event)"
+                        #txtUsr />
+                </mat-form-field>
+                <br />
+                <mat-form-field>
+                    <mat-label>Ingresa tu contraseña</mat-label>
+                    <!--<div style="align-content:end" *ngIf="txtPwd.value.length>0" class="clsPassReveal" (mouseover)="fnRevelaPassword(txtPwd)" (mouseout)="fnTapaPassword()"></div>-->
+                    <input type="password" class="icon-psw" name="psw" matInput class="icon-psw" id="txtPwd" required
+                        type="{{ tipoPwd }}" title="Contraseña" maxLength="15" (keypress)="fnKeyPress('PWD', $event)"
+                        #txtPwd required />
+                </mat-form-field>
+
+                <div title="Entrar" (click)="fnValidarLogin(txtUsr.value, txtPwd.value, txtUsr.value)"></div>
+
+                <div class="recordPass">
+                    <label class="clsLblLink{{ theme }} clsCursorPointer"
+                        (click)="fnRecuperarPwd(txtUsr.value)"></label>
+                    <p>
+                        <a href="#">¿Olvidaste tu contraseña?</a>
+                    </p>
+                </div>
+
+                <button type="submit" mat-button class="propertybutton"
+                    (click)="fnValidarLogin(txtUsr.value, txtPwd.value, txtUsr.value)"><strong>Entrar</strong></button>
+
+                <div class="footer">
+                    <h3>Powered by: </h3>
+                    <img src="/assets/imgs/DVD.png" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>

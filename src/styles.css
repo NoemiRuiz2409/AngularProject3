@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Montserrat:wght@100&family=Quicksand:wght@308&display=swap');
+
+html{
+    background: linear-gradient(#000000, #2A0541, #3C034E, #360F66, #5816BD);
+    background-size: 100% 100%; 
+    background-attachment: fixed;
+    /* --mat-tree-container-background-color:rgb(0, 0, 0);
+    --mat-tree-container-color: #000; */
+}
+
+body {
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+  }
+
