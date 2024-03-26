@@ -1,15 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Montserrat:wght@100&family=Quicksand:wght@308&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Montserrat:wght@100&family=Quicksand:wght@308&display=swap'); */
+/*
+@font-face {
+  font-family: 'HBO Max';
+  src: url('/assets/fonts/HBO Max.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} */
 
 body {
   margin: 0;
-  font-family: "Quicksand", sans-serif;
-  font-optical-sizing: auto;
+  /* font-family: "HBO Max"; */
+  /* font-optical-sizing: auto;
   font-weight: 800;
-  font-style: normal;
+  font-style: normal; */
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+
+.example-card {
+  max-width: 400px;
 }
 
 /* navbar */
@@ -19,7 +30,7 @@ mat-toolbar {
   width: 100%;
   z-index: 1000;
   background-color: black;
-  padding-inline: 20%;
+  padding-inline: 5%;
   align-items: center;
   color: #fff;
   margin: 0;
@@ -51,14 +62,95 @@ mat-toolbar {
   flex-direction: column;
   align-items: center;
   display: block;
-  margin-top: 200px;
+  margin-inline: 3%;
+  margin-top: 5vh;
 }
 
 .banner {
+  height: 30vh;
   width: 100%;
   border-radius: 10px;
 }
 
+/* cards y mat-tab */
+.container {
+  padding: 3vh;
+}
+
+.sidenav-container {
+  padding: 2vh;
+  background: rgba(255, 255, 255, 0.801);
+  border-radius: 20px;
+}
+
+mat-tab {
+  justify-content: center;
+}
+
+mat-tab-label {
+  text-align: center;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: black;
+  padding: 20px;
+}
+
+.example-card {
+  margin: 10px;
+  border-radius: 10px;
+  opacity: 0.8;
+}
+
+.example-card:hover {
+  opacity: 1.0;
+}
+
+.card img {
+  max-width: 100%; /* Establece el ancho máximo al 100% del contenedor */
+  max-height: 200px; /* Establece la altura máxima en 200px (ajusta según tus necesidades) */
+  object-fit: cover; /* Para asegurar que la imagen cubra la totalidad del contenedor */
+}
+
+.justify {
+  text-align: justify;
+  height: 130px;
+  overflow: auto;
+}
+
+.but {
+  display: flex;
+  justify-content: center;
+}
+
+.ver {
+  color: #fff;
+  background-color: #870AB2;
+  cursor: pointer;
+  width: 70%;
+  border-radius: 20rem;
+  margin: 5px;
+}
+
+
+
+
+
+
+
+
+/*
+img {
+  opacity: 0.5;
+}
+
+img:hover {
+  opacity: 1.0;
+} */
+/*
 .containerLanding {
   background-color: rgba(0, 0, 0, 0.589);
   border-radius: 10px;
@@ -67,37 +159,32 @@ mat-toolbar {
   margin-bottom: 20px;
   color: #fff;
   padding: 20px;
-}
+} */
 
 /* cards */
-.met{
+/* .met{
   display: flex;
   width: 100%;
   justify-content: center;
-}
+} */
 
-mat-tab {
-  justify-content: center;
+.item{
+  align-items: center;
 }
 
 mat-paginator {
-  margin-top: 20px; 
-  justify-content:center;
-  display: flex;
+  margin-top: 20px;
+
+  justify-content: center;
+  display: block;
 }
 
-.example-large-box{
+.example-large-box {
   background-color: #fff;
 }
 
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  color: black;
-}
-
-.example-small-box, .example-large-box {
+.example-small-box,
+.example-large-box {
   display: flex;
   align-items: center;
   justify-content: center;

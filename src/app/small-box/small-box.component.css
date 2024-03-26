@@ -1,0 +1,77 @@
+/* small-box.component.css */
+
+.example-small-box {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza la transición del zoom y la sombra */
+  transform: scale(1); /* Tamaño inicial */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave inicial */
+  flex-basis: calc(25% - 20px); /* Establece el ancho del small box al 25% del contenedor con un margen entre ellos */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 120px;
+  margin: 16px;
+  padding: 16px;
+  border-radius: 15px;
+  overflow: hidden; /* Evita que el contenido desborde del contenedor */
+}
+
+.example-small-box:hover {
+    transform: scale(1.05); /* Aumenta el tamaño un 5% */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al enfocar */
+    border-radius: 15px;
+}
+
+
+
+.left {
+  text-align: left;
+  width: 100%;
+}
+
+.right {
+  text-align: right;
+  width: 100%;
+}
+
+.text-purple {
+  color: #3700b3;
+  font-weight: bold; /* Ajusta el grosor del texto */
+}
+
+.example-card-content {
+  text-align: center; /* Centra horizontalmente el contenido */
+}
+
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en múltiples líneas */
+  justify-content: space-between; /* Distribuye uniformemente los elementos a lo largo del contenedor */
+}
+
+.buttonText {
+  width: calc(100% - 32px);
+  margin-top: auto;
+  border-radius: 30px;
+  background-color: #6200ea; /* Un morado vibrante */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+
+}
+
+.example-header-image {
+  width: 100%; /* Asegura que la imagen cubra todo el ancho */
+  height: 60%; /* Ajusta esto según cómo quieras que la imagen de fondo se muestre */
+  background-size: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+  background-position: center; /* Centra la imagen */
+}
+
+
+  .buttonText:hover {
+    background-color: #3700b3; /* Un morado más oscuro al pasar el ratón */
+  }

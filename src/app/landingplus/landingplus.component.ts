@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { ReporteService } from '../Services/reporte.service';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DataServiceService } from '../data-service.service';
+import { Cards } from '../Interfaces/cards'
+import { ReportContainerComponent } from '../report-container/report-container.component';
+import { ReporteDataService } from '../Services/reporte-data.service';
 
 @Component({
   selector: 'app-landingplus',
@@ -9,60 +14,65 @@ import { ReporteService } from '../Services/reporte.service';
 })
 export class LandingplusComponent implements OnInit {
 
-  resultado: any;
-  vuelo = [1, 2, 3, 4, 5, 6, 7];
+  cards_repo: Cards[] = [];
+  totalcards: number = 0;
+  paginatedcard: Cards[] = [];
 
-
-
-  avion = [1, 2, 3, 4, 5, 6];
-  pasajero = [1, 2, 3, 4, 5];
-  tripulacion = [1, 2, 3, 4];
   pageSize = 4;
-  totalvuelo = this.vuelo.length;
-  totalavion = this.avion.length;
-  totalpasajero = this.pasajero.length;
-  totaltripulacion = this.tripulacion.length;
-  paginatedvuelo: any[] = [];
-  paginatedavion: any[] = [];
-  paginatedpasajero: any[] = [];
-  paginatedtripulacion: any[] = [];
 
+  usuarioId: string | null = null;
   usuarioNombre: string | null = null;
   rolNombre: string | null = null;
 
   constructor(
-    private reporteService: ReporteService) {
+    private actRoute: ActivatedRoute,
+    private dataService: DataServiceService,
+    private http: HttpClient,
+    private router: Router,
+    private reporteDataService: ReporteDataService,
+  ) {}
 
-    this.paginatedavion = this.avion.slice(0, this.pageSize);
-    this.paginatedvuelo = this.vuelo.slice(0, this.pageSize);
-    this.paginatedpasajero = this.pasajero.slice(0, this.pageSize);
-    this.paginatedtripulacion = this.tripulacion.slice(0, this.pageSize);
-  }
+  private myHost = this.dataService.myGlobalUrl;
 
   ngOnInit() {
-    this.DatosCards();
+    this.usuarioId = sessionStorage.getItem('sisUserId');
     this.usuarioNombre = sessionStorage.getItem('sisUserName');
     this.rolNombre = sessionStorage.getItem('sisRol');
 
+    this.actRoute.params.subscribe(params => {
+      const objParam = [{ 'usuarioId': this.usuarioId }];
+
+      this.http.get<Cards[]>(this.myHost + '?pg=getUsuarioCards&postData=' + JSON.stringify(objParam)).subscribe(result => {
+        this.cards_repo = result;
+        console.log("Datos de las tarjetas:");
+        console.log(this.cards_repo);
+        this.groupCardsByCategory(); // Llamada después de poblar cards_repo
+        this.totalcards = this.cards_repo.length;
+      });
+    });
   }
 
-  DatosCards(){
-    this.reporteService.getReportes().subscribe(
-      rows => {
-        this.resultado = rows
-      },
-      );
+  groupedCards: Map<string, Cards[]> = new Map<string, Cards[]>();
+
+groupCardsByCategory() {
+  this.groupedCards = new Map<string, Cards[]>();
+  for (let card of this.cards_repo) {
+    const categoryKey = card.CategoriaNombre.toString(); // Convertir a tipo primitivo string
+    if (!this.groupedCards.has(categoryKey)) {
+      this.groupedCards.set(categoryKey, []);
+    }
+    this.groupedCards.get(categoryKey)?.push(card);
   }
+}
 
+getCardsForCategory(categoryKey: string): Cards[] {
+  return this.groupedCards.get(categoryKey) || [];
+}
 
+getCategoryKeys(): string[] {
+  return Array.from(this.groupedCards.keys());
+}
 
-  shouldShowReportDivDerma(): boolean {
-    return this.rolNombre === 'Rol1';
-  }
-
-  shouldShowReportDivFarma(): boolean {
-    return this.rolNombre === 'Rol2';
-  }
 
   public refreshName() { this.usuarioNombre = sessionStorage.getItem('sisUserName'); }
 
@@ -74,61 +84,22 @@ export class LandingplusComponent implements OnInit {
     sessionStorage.setItem('origen', 'ATV Dermo');
   }
 
-
-  onPageChange(event: PageEvent, tab: string) {
-    let startIndex = 0;
-    let endIndex = 0;
-    let totalItems = 0;
-    let paginatedItems: any[] = [];
-
-    switch (tab) {
-      case 'vuelo':
-        startIndex = event.pageIndex * this.pageSize;
-        endIndex = startIndex + this.pageSize;
-        paginatedItems = this.vuelo.slice(startIndex, endIndex);
-        totalItems = this.totalvuelo;
-        break;
-      case 'avion':
-        startIndex = event.pageIndex * this.pageSize;
-        endIndex = startIndex + this.pageSize;
-        paginatedItems = this.avion.slice(startIndex, endIndex);
-        totalItems = this.totalavion;
-        break;
-      case 'pasajero':
-        startIndex = event.pageIndex * this.pageSize;
-        endIndex = startIndex + this.pageSize;
-        paginatedItems = this.pasajero.slice(startIndex, endIndex);
-        totalItems = this.totalpasajero;
-        break;
-      case 'tripulacion':
-        startIndex = event.pageIndex * this.pageSize;
-        endIndex = startIndex + this.pageSize;
-        paginatedItems = this.tripulacion.slice(startIndex, endIndex);
-        totalItems = this.totaltripulacion;
-        break;
-    }
-
-    switch (tab) {
-      case 'vuelo':
-        this.paginatedvuelo = paginatedItems;
-        this.totalvuelo = totalItems;
-        break;
-      case 'avion':
-        this.paginatedavion = paginatedItems;
-        this.totalavion = totalItems;
-        break;
-      case 'pasajero':
-        this.paginatedpasajero = paginatedItems;
-        this.totalpasajero = totalItems;
-        break;
-      case 'tripulacion':
-        this.paginatedtripulacion = paginatedItems;
-        this.totaltripulacion = totalItems;
-        break;
-    }
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    const paginatedItems = this.cards_repo.slice(startIndex, endIndex);
+    this.paginatedcard = paginatedItems;
+    this.totalcards = this.cards_repo.length;
   }
 
   refreshPage() {
     location.reload();
+  }
+
+  redirect(RepGUID: Cards){
+    this.reporteDataService.setReporteGUID(RepGUID.ReporteGUID)
+    this.reporteDataService.setworkspaceGUID(RepGUID.WorkspaceGUID)
+
+    this.router.navigate(['/report']);
   }
 }

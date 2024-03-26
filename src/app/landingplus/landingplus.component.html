@@ -9,9 +9,11 @@
 
 <header>
   <mat-toolbar>
+
     <img src="/assets/imgs/icon.png" class="image">
     <span class="example-spacer"></span>
-    <button class="icon" mat-button [matMenuTriggerFor]="menu"><mat-icon>account_circle</mat-icon>{{usuarioNombre}} </button>
+    <button class="icon" mat-button [matMenuTriggerFor]="menu"><mat-icon>account_circle</mat-icon>{{usuarioNombre}}
+    </button>
     <mat-menu #menu="matMenu">
       <!-- <button class="icons" mat-menu-item><mat-icon>home</mat-icon>Inicio</button> -->
       <button class="icons" mat-menu-item (click)="refreshPage()"><mat-icon>forward</mat-icon>Cerrar sesión</button>
@@ -19,97 +21,47 @@
   </mat-toolbar>
 </header>
 
-<body>
-  <!-- navbar -->
-  <!-- <mat-toolbar color="primary">
-      <span><img src="/assets/imgs/icon.png" class="image"></span>
-      <span class="fill-remaining-space"></span>
-      <button mat-icon-button class="user-text">
-        <mat-icon>account_circle</mat-icon>
-        <span>User</span>
-      </button>
-    </mat-toolbar> -->
 
+<!-- front -->
+<div class="front">
 
+  <img src="/assets/imgs/design8.png" class="banner">
 
-  <!-- front -->
-  <div class="front">
-    <img src="/assets/imgs/banner2.png" class="banner">
-
-    <!-- container -->
-    <div class="containerLanding">
-      <mat-tab-group dynamicHeight>
-        <div *ngIf="shouldShowReportDivDerma()" [routerLink]="['/reportContainer']" (click)="sendDermaFilter()">
-<!--
-          <mat-tab label="Vuelo">
-            <div class="met">
-              <div *ngFor="let item of paginatedvuelo" class="example-large-box mat-elevation-z4">
-                {{ item }}
+  <!-- container -->
+  <div class="container">
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav-content>
+        <mat-tab-group dynamicHeight>
+          <mat-tab *ngFor="let categoryKey of getCategoryKeys()">
+            <ng-template mat-tab-label><h2>{{ categoryKey }}</h2></ng-template>
+            <div class="cards-container">
+              <div class="card" *ngFor="let card of getCardsForCategory(categoryKey)">
+                <mat-card class="example-card mat-elevation-z8">
+                  <mat-card-header>
+                    <mat-card-title><b>{{ card.ReporteTitulo }}</b></mat-card-title>
+                  </mat-card-header>
+                  <img mat-card-image [src]="card.ReporteImagen">
+                  <mat-card-content class="justify">
+                    <p>
+                      {{ card.ReporteDetalle }}
+                    </p>
+                  </mat-card-content>
+                  <mat-card-actions class="but">
+                    <button class="ver" mat-button (click)="redirect(card)">VER</button>
+                  </mat-card-actions>
+                </mat-card>
               </div>
-            </div>
-            <mat-paginator [pageSize]="pageSize" [length]="totalvuelo"
-              (page)="onPageChange($event, 'vuelo')"></mat-paginator>
-          </mat-tab> -->
 
-          <mat-tab label="Vuelo">
-            <div class="met">
-              <div *ngFor="let item of resultado" class="example-large-box mat-elevation-z4">
-                {{ item }}
-              </div>
             </div>
           </mat-tab>
-            <!-- <mat-paginator [pageSize]="pageSize" [length]="totalvuelo"
-              (page)="onPageChange($event, 'vuelo')"></mat-paginator>
-          </mat-tab> -->
+        </mat-tab-group>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
 
-          <!-- <mat-tab *ngFor="let tab of tabs" [label]="tab.title">
-            <div class="flex-container">
-              <div class="example-small-box mat-elevation-z4">
-                <div class="example-header-image"></div>
-                <div class="example-card-content">
-                  <h2>{{ tab.content.title }}</h2>
 
-                </div>
-              </div>
-            </div>
-          </mat-tab> -->
 
-          <mat-tab label="Aviones">
-            <div class="met">
-              <div *ngFor="let item of paginatedavion" class="example-large-box mat-elevation-z4">
-                {{ item }}
-              </div>
-            </div>
-            <mat-paginator [pageSize]="pageSize" [length]="totalavion"
-              (page)="onPageChange($event, 'avion')"></mat-paginator>
-          </mat-tab>
-        </div>
-
-        <div *ngIf="shouldShowReportDivFarma()" [routerLink]="['/reportContainer']" (click)="sendPharmaFilter()">
-        <mat-tab label="Pasajeros">
-          <div class="met">
-            <div *ngFor="let item of paginatedpasajero" class="example-large-box mat-elevation-z4">
-              {{ item }}
-            </div>
-          </div>
-          <mat-paginator [pageSize]="pageSize" [length]="totalpasajero"
-            (page)="onPageChange($event, 'pasajero')"></mat-paginator>
-        </mat-tab>
-
-        <mat-tab label="Tripulacion">
-          <div class="met">
-            <div *ngFor="let item of paginatedtripulacion" class="example-large-box mat-elevation-z4">
-              {{ item }}
-            </div>
-          </div>
-          <mat-paginator [pageSize]="pageSize" [length]="totaltripulacion"
-            (page)="onPageChange($event, 'tripulacion')"></mat-paginator>
-        </mat-tab>
-        </div>
-      </mat-tab-group>
-    </div>
   </div>
 
-</body>
+</div>
 
 </html>

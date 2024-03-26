@@ -1,0 +1,14 @@
+.sidebar {
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  background-color: #333;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  top: 60px; /* Ajusta esto al alto de tu navbar */
+  left: 0;
+  width: 250px; /* o la anchura que prefieras para tu sidebar */
+  height: calc(100vh - 60px); /* Ajusta la altura para que llene el espacio vertical restante */
+  z-index: 95; /* Menor que el navbar para que no sobresalga por encima */
+  overflow-y: auto; /* Habilita el desplazamiento vertical si el contenido excede la altura visible */
+}

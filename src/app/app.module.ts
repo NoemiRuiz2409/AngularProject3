@@ -24,12 +24,14 @@ import { LandingplusComponent } from './landingplus/landingplus.component';
 import { MatCardModule } from '@angular/material/card';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ReportContainerComponent } from './report-container/report-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginVolarisComponent,
     LandingplusComponent,
+    ReportContainerComponent,
   ],
   imports: [
     BrowserModule,

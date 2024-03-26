@@ -32,6 +32,7 @@ export class ReporteService {
   private myHost = this.dataServiceGeneral.myGlobalUrl;
 
   urlReportesGetReportes = this.myHost + "?pg=getReportes";
+  urlReportesGetUsuarioCards = this.myHost + "?pg=getUsuarioCards";
   urlReportesGetReportesUsuario = this.myHost + "?pg=getReportesUsuario";
   urlReportesGetReportesReciente = this.myHost + "?pg=getReportesReciente";
 
@@ -45,9 +46,28 @@ export class ReporteService {
       // 'userEntra': UserEntra,
     }
 
-    return this.httpCliente.post<any>(this.urlReportesGetReportes, httpOptions).pipe(
+    return this.httpCliente.post<any>(this.urlReportesGetUsuarioCards, httpOptions).pipe(
       tap((data: any) => this.dataServiceGeneral.log(`${data}`)),
-      catchError(this.dataServiceGeneral.handleError<string>('getReportes'))
+      catchError(this.dataServiceGeneral.handleError<string>('getUsuarioCards'))
+    );
+
+  }
+
+  public getUsuarioCards(usuarioId: number){
+    var objParam = [];
+    var obj = {
+      'usuarioId ': usuarioId
+      // NOTA: No se va a enviar ningun parametro
+      // 'userWeb': UserWeb,
+      // 'web': Web,
+      // 'userEntra': UserEntra,
+    }
+
+    objParam.push(obj);
+
+    return this.httpCliente.post<any>(this.urlReportesGetUsuarioCards + '&postData=' + JSON.stringify(objParam), objParam[0], httpOptions).pipe(
+      tap((data: any) => this.dataServiceGeneral.log(`${data}`)),
+      catchError(this.dataServiceGeneral.handleError<string>('getUsuarioCards'))
     );
 
   }
