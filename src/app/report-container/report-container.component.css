@@ -1,0 +1,33 @@
+/* navbar */
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: black;
+  padding-inline: 5%;
+  align-items: center;
+  color: #fff;
+  margin: 0;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.image {
+  width: 180px;
+  height: 70%;
+}
+
+.icon {
+  color: #fff;
+  transform: scale(1.5);
+}
+
+.icons {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}

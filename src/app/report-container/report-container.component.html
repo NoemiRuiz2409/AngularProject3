@@ -1,1 +1,13 @@
-<p>report-container works!</p>
+<header>
+  <mat-toolbar>
+
+    <img src="/assets/imgs/icon.png" class="image">
+    <span class="example-spacer"></span>
+    <button class="icon" mat-button [matMenuTriggerFor]="menu"><mat-icon>account_circle</mat-icon>{{usuarioNombre}}
+    </button>
+    <mat-menu #menu="matMenu">
+      <!-- <button class="icons" mat-menu-item><mat-icon>home</mat-icon>Inicio</button> -->
+      <button class="icons" mat-menu-item (click)="refreshPage()"><mat-icon>forward</mat-icon>Cerrar sesión</button>
+    </mat-menu>
+  </mat-toolbar>
+</header>

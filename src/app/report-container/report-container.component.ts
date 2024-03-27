@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReporteDataService } from '../Services/reporte-data.service';
+import { HttpClient } from '@angular/common/http';
+import { DataServiceService } from '../data-service.service';
 
 @Component({
   selector: 'app-report-container',
@@ -11,10 +13,26 @@ import { ReporteDataService } from '../Services/reporte-data.service';
 
 export class ReportContainerComponent{
 
+  usuarioId: string | null = null;
+  usuarioNombre: string | null = null;
+  rolNombre: string | null = null;
+
   constructor(
+    private actRoute: ActivatedRoute,
+    private dataService: DataServiceService,
+    private http: HttpClient,
+    private router: Router,
     private route: ActivatedRoute,
     private reporteDataService: ReporteDataService) {
       this.loadInfo();
+  }
+
+  private myHost = this.dataService.myGlobalUrl;
+
+  ngOnInit() {
+    this.usuarioId = sessionStorage.getItem('sisUserId');
+    this.usuarioNombre = sessionStorage.getItem('sisUserName');
+    this.rolNombre = sessionStorage.getItem('sisRol');
   }
 
   loadInfo(){
@@ -25,6 +43,9 @@ export class ReportContainerComponent{
     console.log(wors)
   }
 
+  refreshPage() {
+    location.reload();
+  }
 }
 
 
